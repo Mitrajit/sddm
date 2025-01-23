@@ -46,7 +46,16 @@ describe("DKIM Record Validation", () => {
             data: {
                 Answer: [
                     {
-                        data: "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9Uu5",
+                        name: "selector1._domainkey.example.com.",
+                        type: 5,
+                        TTL: 300,
+                        data: "selector1-example-com._domainkey.example.onmicrosoft.com.",
+                    },
+                    {
+                        name: "selector1-example-com._domainkey.example.onmicrosoft.com.",
+                        type: 16,
+                        TTL: 3600,
+                        data: "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7EMhPpSveifM1Wzs8Dy5AFULhNPcDLS8iW2s8KNi23GnfxHjqn6+jTo6BBlOmUt0qIsVBlXH3/Ab+;",
                     },
                 ],
             },
@@ -87,7 +96,7 @@ describe("DKIM Record Validation", () => {
                 data: {
                     Answer: [
                         {
-                            data: "k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9Uu5",
+                            data: "v=DKIM1; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9Uu5",
                         },
                     ],
                 },

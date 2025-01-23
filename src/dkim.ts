@@ -78,8 +78,13 @@ async function validateDkimForSelector(
         };
     }
 
+    // Filter out non-DKIM records
+    const validDkimRecords = dkimRecords.filter((record: any) =>
+        record.data.toLowerCase().includes("v=dkim1"),
+    );
+
     // Rule 1: Check for multiple DKIM records
-    if (dkimRecords.length > 1) {
+    if (validDkimRecords.length > 1) {
         return {
             isValid: false,
             reason: `Multiple DKIM records found for selector ${selector}`,
@@ -87,7 +92,14 @@ async function validateDkimForSelector(
     }
 
     // Rule 2: Parse and validate DKIM record
-    const record = dkimRecords[0].data;
+    if (validDkimRecords.length === 0) {
+        return {
+            isValid: false,
+            reason: `No valid DKIM records found for selector ${selector}`,
+        };
+    }
+
+    const record = validDkimRecords[0].data;
     if (!isValidDkimRecord(record)) {
         return {
             isValid: false,

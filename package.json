@@ -1,6 +1,6 @@
 {
     "name": "sddm",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Package to check the spf dkim dmarc and mx records by the DNS name",
     "keywords": [
         "spf",
