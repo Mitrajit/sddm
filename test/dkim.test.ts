@@ -71,9 +71,20 @@ describe("DKIM Record Validation", () => {
         });
 
         it("should validate Microsoft DKIM", async () => {
-            jest.spyOn(googleDnsService, "get").mockResolvedValueOnce(
-                validResponse,
-            );
+            jest.spyOn(googleDnsService, "get")
+                .mockResolvedValueOnce(validResponse)
+                .mockResolvedValueOnce({
+                    data: {
+                        Answer: [
+                            {
+                                name: "selector2._domainkey.largevolumerecruit.com.",
+                                type: 5,
+                                TTL: 300,
+                                data: "selector2-largevolumerecruit-com._domainkey.rkwbbpqprf.onmicrosoft.com.",
+                            },
+                        ],
+                    },
+                });
             const result = await checkDkim("example.com", "microsoft");
             expect(result.isValid).toBe(true);
             expect(result.dkimSelectors).toContain("selector1");

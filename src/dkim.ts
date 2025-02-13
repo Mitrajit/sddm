@@ -126,7 +126,11 @@ export async function checkDkim(
 
         if (result.isValid === true) {
             foundValidSelectors.set(selector, result.reason);
-        } else if (result.isValid === false) {
+        } else if (
+            result.isValid === false &&
+            !result.reason.includes("No DKIM records found") &&
+            !result.reason.includes("No valid DKIM records found")
+        ) {
             return {
                 isValid: false,
                 reason: result.reason,
