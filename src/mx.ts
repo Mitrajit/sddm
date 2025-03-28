@@ -37,7 +37,7 @@ export async function checkMx(domain: string): Promise<MxCheckResult> {
         const [preference, exchange] = answer.data.split(" ");
         return {
             preference: parseInt(preference, 10),
-            exchange: exchange.toLowerCase().replace(/\.$/, ""), // Remove trailing dot if present
+            exchange: exchange?.toLowerCase()?.replace(/\.$/, ""), // Remove trailing dot if present
         };
     });
 
